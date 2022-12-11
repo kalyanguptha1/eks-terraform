@@ -2,8 +2,8 @@
 
 provider "aws" {
       region     = "us-east-1"
-      access_key = "AKIAWJKAGRYU6VG4EPOU"
-      secret_key = "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"
+      access_key = ""
+      secret_key = ""
 }
 
 resource "aws_security_group" "bastion_stage" {
