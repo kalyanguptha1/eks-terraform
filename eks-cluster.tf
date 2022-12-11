@@ -6,10 +6,10 @@ provider "aws" {
       secret_key = ""
 }
 
-resource "aws_security_group" "bastion_stage" {
-  name        = "bastion_stage"
-  description = "Bastion for EKS"
-  vpc_id      = "vpc-0ec7c267c437b4596"
+resource "aws_security_group" "" {
+  name        = ""
+  description = ""
+  vpc_id      = ""
 
   ingress {
     description      = "TLS from VPC"
@@ -29,13 +29,13 @@ resource "aws_security_group" "bastion_stage" {
   }
 
   tags = {
-    Name = "bastion_stage"
+    Name = ""
   }
 }
 
-resource "aws_instance" "bastion-server-stage" {
-  vpc_security_group_ids = [aws_security_group.bastion_stage.id]
-  subnet_id             = "subnet-0b4ed529243043855"
+resource "aws_instance" "" {
+  vpc_security_group_ids = [aws_security_group.(update your security_group name)]
+  subnet_id             = ""
   ami                   = var.AMI
   instance_type = var.INSTANCE_TYPE
   key_name = "dev_user_new"
@@ -54,7 +54,7 @@ provisioner "file" {
     connection {   
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = file("/mnt/c/Users/nrish/Downloads/ec2-test.pem")
+      private_key = file("update your pem key file path with file name")
     }   
 
   }
@@ -63,13 +63,13 @@ provisioner "remote-exec" {
   connection {   
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = file("/mnt/c/Users/nrish/Downloads/ec2-test.pem")
+      private_key = file("update your pem key file path with file name")
     }   
 
 
     inline = [
-    "chmod +x  ~/Downloads/terraform-kalyan/eks/install_terraform.sh",
-    "/bin/bash  ~/Downloads/terraform-kalyan/eks/install_terraform.sh",
+    "chmod +x  ~/Downloads/eks-terraform/eks/install_terraform.sh",
+    "/bin/bash  ~/Downloads/eks-terraform/eks/install_terraform.sh",
     ]
   }
 
@@ -84,7 +84,7 @@ resource "aws_eip" "stage-ip" {
   vpc      = "true"
 }
 
-resource "aws_eks_cluster" "eks-test" {
+resource "aws_eks_cluster" "update_name_of _the_cluster" {
   name = var.cluster-name
 
   version = var.k8s-version
@@ -93,14 +93,14 @@ resource "aws_eks_cluster" "eks-test" {
 
   vpc_config {
     security_group_ids = [var.security_group]
-    subnet_ids         = ["subnet-054b60432a87f1a72", "subnet-0b4ed529243043855"]
+    subnet_ids         = ["", ""]
     endpoint_private_access = true
     endpoint_public_access = false
   }
 
  
   depends_on = [
-    aws_instance.bastion-server-stage,
+    aws_instance.(update your instance name),
     aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.cluster-AmazonEKSServicePolicy,
   ]
@@ -110,7 +110,7 @@ resource "aws_eks_node_group" "eks-node-group" {
   cluster_name    = var.cluster-name
   node_group_name = "${var.cluster-name}-default-node-group"
   node_role_arn   = aws_iam_role.node.arn
-  subnet_ids      = ["subnet-054b60432a87f1a72", "subnet-0b4ed529243043855"]
+  subnet_ids      = ["", ""]
   scaling_config {
     desired_size = var.desired-capacity
     max_size     = var.max-size
@@ -132,9 +132,9 @@ resource "aws_eks_node_group" "eks-node-group" {
 }
 
 output "endpoint" {
-  value = aws_eks_cluster.eks-test.endpoint
+  value = aws_eks_cluster.(cluster_name).endpoint
 }
 
 output "kubeconfig-certificate-authority-data" {
-  value = aws_eks_cluster.eks-test.certificate_authority[0]
+  value = aws_eks_cluster.(cluster_name).certificate_authority[0]
 }
