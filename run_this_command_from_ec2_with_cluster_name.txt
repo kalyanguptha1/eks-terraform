@@ -1,0 +1,3 @@
+aws eks update-kubeconfig --region region-code --name my-cluster
+
+Note: Allow instance Security group to cluster before running the above command.
