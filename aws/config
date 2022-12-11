@@ -1,1 +1,2 @@
-ls
+[default]
+region = us-west-2
