@@ -1,19 +1,19 @@
 # Variables Configuration
 
 variable "cluster-name" {
-  default     = "eks-test"
+  default     = "update-cluster-name"
   type        = string
   description = "The name of your EKS Cluster"
 }
 
 variable "aws-region" {
-  default     = "us-west-2"
+  default     = "update-region"
   type        = string
   description = "The AWS Region to deploy EKS"
 }
 
 variable "availability-zones" {
-  default     = ["us-west-2d"]
+  default     = ["update-availability-zone"]
   type        = list
   description = "The AWS AZ to deploy EKS"
 }
@@ -25,7 +25,7 @@ variable "k8s-version" {
 }
 
 variable "node-instance-type" {
-  default     = "t2.small"
+  default     = "update-instance-type-for-worker-node"
   type        = string
   description = "Worker Node EC2 instance type"
 }
@@ -38,13 +38,13 @@ variable "root-block-size" {
 }
 
 variable "subnet_id_pub1" {
-  default     = "subnet-0b4ed529243043855"
+  default     = "update-subnet-it"
   type        = string
   description = "Size of the root EBS block device"
 
 }
 variable "subnet_id_pub2" {
-  default     = ["subnet-054b60432a87f1a72"]
+  default     = ["update-subnet-it"]
   type        = list(string)
   description = "Size of the root EBS block device"
 
@@ -52,7 +52,7 @@ variable "subnet_id_pub2" {
 
 
 variable "security_group" {
-  default     = "sg-0da0c32ba9a456eca"
+  default     = "update-security-group"
   type        = string
   description = "Size of the root EBS block device"
 
@@ -77,16 +77,16 @@ variable "min-size" {
 }
 
 variable "INSTANCE_TYPE" {
-  default  = "t2.small"
+  default  = "update-instance-type"
   type      = string
 }
 variable "VM_NAME" {
-  default  = "rds-bastion-server-stage"
+  default  = "update-instance-name"
   type  = string
 }
 
 variable "AMI" {
-  default  = "ami-094125af156557ca2"
+  default  = "update-ami-id"
   type      = string
 }
 
